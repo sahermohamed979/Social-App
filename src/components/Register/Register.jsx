@@ -1,18 +1,17 @@
 import { Link } from "react-router-dom";
+import FormField from "../UI/FormField/Formfield";
+import AuthText from "../UI/Authtext/AuthText";
+import useSignUpHook from "../../Hooks/SighUpHook/SignUpHook.js";
 
 export default function Register() {
+  const { FormData, handleSighup } = useSignUpHook();
+  let { register, handleSubmit, formState } = FormData;
+
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
       <div className="flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-16 max-w-5xl w-full">
         {/* Left Side - Branding */}
-        <div className="text-center lg:text-left lg:flex-1">
-          <h1 className="text-4xl xs:text-5xl lg:text-6xl font-bold text-blue-600 mb-2 xs:mb-4">
-            SocialApp
-          </h1>
-          <p className="text-lg xs:text-xl lg:text-2xl text-gray-600 max-w-md mx-auto lg:mx-0">
-            Connect with friends and the world around you on SocialApp.
-          </p>
-        </div>
+        <AuthText />
 
         {/* Right Side - Register Form */}
         <div className="w-full max-w-sm xs:max-w-md">
@@ -24,65 +23,98 @@ export default function Register() {
               </h2>
               <p className="text-gray-500 text-sm mt-1">It's quick and easy.</p>
             </div>
-
             <hr className="border-gray-200" />
 
-            {/* Form */}
-            <form className="space-y-3">
+            <form className="space-y-3" onSubmit={handleSubmit(handleSighup)}>
               {/* Name Field */}
-              <input
-                type="text"
-                name="name"
-                placeholder="Full name"
+              <FormField
+                type="name"
                 className="w-full px-3 xs:px-4 py-2.5 xs:py-3 border border-gray-300 rounded-md text-base xs:text-lg bg-gray-50 
                   focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 
                   placeholder-gray-500 transition-all"
+                id="name"
+                {...register("name")}
+                name="name"
+                placeholder="Enter your name"
               />
+              {formState.touchedFields?.name && formState.errors?.name && (
+                <p className="text-red-500 text-sm mt-1">
+                  {formState.errors.name.message}
+                </p>
+              )}
 
               {/* Email Field */}
-              <input
+              <FormField
                 type="email"
+                className="w-full px-3 xs:px-4 py-2.5 xs:py-3 border border-gray-300 rounded-md text-base xs:text-lg bg-gray-50 
+                  focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 
+                  placeholder-gray-500 transition-all"
+                id="email"
+                {...register("email")}
+                placeholder="Enter your email"
                 name="email"
-                placeholder="Email address"
-                className="w-full px-3 xs:px-4 py-2.5 xs:py-3 border border-gray-300 rounded-md text-base xs:text-lg bg-gray-50 
-                  focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 
-                  placeholder-gray-500 transition-all"
               />
-
+              {formState.touchedFields?.email && formState.errors?.email && (
+                <p className="text-red-500 text-sm mt-1">
+                  {formState.errors.email.message}
+                </p>
+              )}
               {/* Password Field */}
-              <input
+              <FormField
                 type="password"
+                className="w-full px-3 xs:px-4 py-2.5 xs:py-3 border border-gray-300 rounded-md text-base xs:text-lg bg-gray-50 
+                  focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 
+                  placeholder-gray-500 transition-all"
+                id="password"
+                {...register("password")}
+                placeholder="Enter your password"
                 name="password"
-                placeholder="New password"
-                className="w-full px-3 xs:px-4 py-2.5 xs:py-3 border border-gray-300 rounded-md text-base xs:text-lg bg-gray-50 
-                  focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 
-                  placeholder-gray-500 transition-all"
               />
-
+              {formState.touchedFields?.password &&
+                formState.errors?.password && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {formState.errors.password.message}
+                  </p>
+                )}
               {/* Confirm Password Field */}
-              <input
+              <FormField
                 type="password"
-                name="rePassword"
-                placeholder="Confirm password"
                 className="w-full px-3 xs:px-4 py-2.5 xs:py-3 border border-gray-300 rounded-md text-base xs:text-lg bg-gray-50 
                   focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 
                   placeholder-gray-500 transition-all"
+                id="rePassword"
+                {...register("rePassword")}
+                placeholder="Confirm your password"
+                name="rePassword"
               />
-
+              {formState.touchedFields?.rePassword &&
+                formState.errors?.rePassword && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {formState.errors.rePassword.message}
+                  </p>
+                )}
               {/* Date of Birth */}
               <div className="space-y-1">
                 <label className="text-xs text-gray-600 font-medium">
                   Date of birth
                 </label>
-                <input
+                <FormField
                   type="date"
-                  name="dateOfBirth"
+                  {...register("dateOfBirth")}
                   className="w-full px-4 py-3 border border-gray-300 rounded-md text-lg bg-gray-50 
                     focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 
                     text-gray-700 transition-all"
+                  id="dateOfBirth"
+                  name="dateOfBirth"
+                  placeholder="Select your date of birth"
                 />
+                {formState.touchedFields?.dateOfBirth &&
+                  formState.errors?.dateOfBirth && (
+                    <p className="text-red-500 text-sm mt-1">
+                      {formState.errors.dateOfBirth.message}
+                    </p>
+                  )}
               </div>
-
               {/* Gender Selection */}
               <div className="space-y-1">
                 <label className="text-xs text-gray-600 font-medium">
@@ -93,27 +125,36 @@ export default function Register() {
                     <span className="text-gray-700 text-sm xs:text-base">
                       Male
                     </span>
-                    <input
+                    <FormField
                       type="radio"
-                      name="gender"
+                      {...register("gender")}
                       value="male"
                       className="w-4 h-4 xs:w-5 xs:h-5 text-blue-600 accent-blue-600"
+                      id="gender"
+                      name="gender"
                     />
                   </label>
                   <label className="flex-1 flex items-center justify-between px-3 xs:px-4 py-2.5 xs:py-3 border border-gray-300 rounded-md cursor-pointer hover:border-blue-400 transition-all">
                     <span className="text-gray-700 text-sm xs:text-base">
                       Female
                     </span>
-                    <input
+                    <FormField
                       type="radio"
-                      name="gender"
+                      {...register("gender")}
                       value="female"
+                      id="gender"
+                      name="gender"
                       className="w-4 h-4 xs:w-5 xs:h-5 text-blue-600 accent-blue-600"
                     />
                   </label>
                 </div>
+                {formState.touchedFields?.gender &&
+                  formState.errors?.gender && (
+                    <p className="text-red-500 text-sm mt-1">
+                      {formState.errors.gender.message}
+                    </p>
+                  )}
               </div>
-
               {/* Terms Text */}
               <p className="text-xs text-gray-500 leading-relaxed">
                 By clicking Sign Up, you agree to our{" "}
@@ -130,7 +171,6 @@ export default function Register() {
                 </a>
                 .
               </p>
-
               {/* Sign Up Button */}
               <div className="pt-2">
                 <button
@@ -142,7 +182,6 @@ export default function Register() {
                 </button>
               </div>
             </form>
-
             {/* Login Link */}
             <div className="text-center pt-4">
               <Link

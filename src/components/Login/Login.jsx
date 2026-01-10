@@ -1,20 +1,12 @@
-import React from "react";
 import { Link } from "react-router-dom";
+import AuthText from "../UI/Authtext/AuthText";
 
 export default function Login() {
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center p-3 xs:p-4">
       <div className="flex flex-col lg:flex-row items-center justify-center gap-6 xs:gap-8 lg:gap-16 max-w-5xl w-full">
         {/* Left Side - Branding */}
-        <div className="text-center lg:text-left lg:flex-1">
-          <h1 className="text-4xl xs:text-5xl sm:text-6xl lg:text-7xl font-bold text-blue-600 mb-1 xs:mb-2 lg:mb-4">
-            SocialApp
-          </h1>
-          <p className="text-base xs:text-lg sm:text-xl lg:text-2xl text-gray-600 max-w-md mx-auto lg:mx-0">
-            Connect with friends and the world around you on SocialApp.
-          </p>
-        </div>
-
+        <AuthText />
         {/* Right Side - Login Form */}
         <div className="w-full max-w-[320px] xs:max-w-sm sm:max-w-md">
           <div className="bg-white rounded-lg shadow-lg p-3 xs:p-4 sm:p-6 space-y-3 xs:space-y-4">
