@@ -71,7 +71,7 @@ export default function SignUpHook() {
 
       if (data.message === "success") {
         toast.success("Signup successful! Please log in.");
-        setInterval(() => {
+        setTimeout(() => {
           navigate("/login");
         }, 3000);
       }
