@@ -4,9 +4,11 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import z from "zod";
+import { useState } from "react";
 export default function SignUpHook() {
-  // const [existErrorMsg, setExistErrorMsg] = useState(null);
+  const [isloading, setIsloading] = useState(false);
   let navigate = useNavigate();
+
   let schema = z
     .object({
       name: z
@@ -59,6 +61,8 @@ export default function SignUpHook() {
 
   async function handleSighup(values) {
     try {
+      setIsloading(true);
+
       const { data } = await axios.post(
         "https://linked-posts.routemisr.com/users/signup",
         values
@@ -72,9 +76,11 @@ export default function SignUpHook() {
         }, 3000);
       }
     } catch (error) {
-      toast.error(error.response?.data?.message || "An error occurred");
+      toast.error(error.response?.data?.error);
+    } finally {
+      setIsloading(false);
     }
   }
 
-  return { FormData, handleSighup };
+  return { FormData, handleSighup, isloading };
 }

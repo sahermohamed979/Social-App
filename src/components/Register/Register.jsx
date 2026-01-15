@@ -1,11 +1,21 @@
 import { Link } from "react-router-dom";
+import { useState } from "react";
 import FormField from "../UI/FormField/Formfield";
 import AuthText from "../UI/Authtext/AuthText";
 import useSignUpHook from "../../Hooks/SighUpHook/SignUpHook.js";
+import {
+  faSpinner,
+  faEye,
+  faEyeSlash,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function Register() {
-  const { FormData, handleSighup } = useSignUpHook();
+  const { FormData, handleSighup, isloading } = useSignUpHook();
   let { register, handleSubmit, formState } = FormData;
+  const [showpassword, setShowpassword] = useState(false);
+
+  const PasswordValue = FormData.watch("password");
 
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
@@ -60,16 +70,30 @@ export default function Register() {
                 </p>
               )}
               {/* Password Field */}
-              <FormField
-                type="password"
-                className="w-full px-3 xs:px-4 py-2.5 xs:py-3 border border-gray-300 rounded-md text-base xs:text-lg bg-gray-50 
+              <div className="relative">
+                <FormField
+                  type={showpassword ? "text" : "password"}
+                  className="w-full px-3 xs:px-4 py-2.5 xs:py-3 border border-gray-300 rounded-md text-base xs:text-lg bg-gray-50 
                   focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 
-                  placeholder-gray-500 transition-all"
-                id="password"
-                {...register("password")}
-                placeholder="Enter your password"
-                name="password"
-              />
+                  placeholder-gray-500 transition-all relative"
+                  id="password"
+                  {...register("password")}
+                  placeholder="Enter your password"
+                  name="password"
+                />
+                {PasswordValue && (
+                  <span
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer text-gray-500"
+                    onClick={() => setShowpassword(!showpassword)}
+                  >
+                    {showpassword ? (
+                      <FontAwesomeIcon icon={faEye} />
+                    ) : (
+                      <FontAwesomeIcon icon={faEyeSlash} />
+                    )}
+                  </span>
+                )}
+              </div>
               {formState.touchedFields?.password &&
                 formState.errors?.password && (
                   <p className="text-red-500 text-sm mt-1">
@@ -174,11 +198,16 @@ export default function Register() {
               {/* Sign Up Button */}
               <div className="pt-2">
                 <button
+                  disabled={isloading}
                   type="submit"
-                  className="w-full py-3 px-4 bg-green-500 hover:bg-green-600 text-white text-lg font-bold rounded-md 
+                  className="w-full disabled: py-3 d px-4 disabled:cursor-not-allowed bg-green-500 hover:bg-green-600 text-white text-lg font-bold rounded-md 
                     transition-colors duration-200 shadow-md"
                 >
-                  Sign Up
+                  {isloading ? (
+                    <FontAwesomeIcon icon={faSpinner} spin />
+                  ) : (
+                    "Sign Up"
+                  )}
                 </button>
               </div>
             </form>

@@ -1,28 +1,34 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import {
   FaHome,
   FaUserFriends,
   FaVideo,
   FaStore,
-  FaGamepad,
   FaBell,
   FaFacebookMessenger,
   FaCaretDown,
   FaSearch,
   FaBars,
   FaUser,
-  FaSignInAlt,
-  FaUserPlus,
   FaCog,
   FaQuestionCircle,
   FaMoon,
   FaSignOutAlt,
 } from "react-icons/fa";
 import pic from "../../assets/Screenshot 2025-11-24 183204.png";
+import { useContext } from "react";
+import { AuthContext } from "../../Context/AuthContext";
 
 export default function Navbar() {
+  let { setUser } = useContext(AuthContext);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  let navigate = useNavigate();
+  function SignOut() {
+    localStorage.removeItem("token");
+    navigate("/login");
+    setUser(null);
+  }
   return (
     <>
       {/* Top Navbar */}
@@ -164,32 +170,6 @@ export default function Navbar() {
                     </div>
 
                     {/* Auth Links */}
-                    <div className="p-2 border-b border-gray-100">
-                      <Link
-                        to="/login"
-                        className="flex items-center gap-3 px-3 py-2.5 hover:bg-gray-100 rounded-lg transition-colors"
-                        onClick={() => setIsDropdownOpen(false)}
-                      >
-                        <div className="w-9 h-9 bg-gray-200 rounded-full flex items-center justify-center">
-                          <FaSignInAlt className="text-gray-700" />
-                        </div>
-                        <span className="font-medium text-gray-800">
-                          Log In
-                        </span>
-                      </Link>
-                      <Link
-                        to="/signup"
-                        className="flex items-center gap-3 px-3 py-2.5 hover:bg-gray-100 rounded-lg transition-colors"
-                        onClick={() => setIsDropdownOpen(false)}
-                      >
-                        <div className="w-9 h-9 bg-gray-200 rounded-full flex items-center justify-center">
-                          <FaUserPlus className="text-gray-700" />
-                        </div>
-                        <span className="font-medium text-gray-800">
-                          Sign Up
-                        </span>
-                      </Link>
-                    </div>
 
                     {/* Menu Items */}
                     <div className="p-2">
@@ -221,7 +201,10 @@ export default function Navbar() {
                         <div className="w-9 h-9 bg-gray-200 rounded-full flex items-center justify-center">
                           <FaSignOutAlt className="text-gray-700" />
                         </div>
-                        <span className="font-medium text-gray-800">
+                        <span
+                          onClick={SignOut}
+                          className="font-medium text-gray-800 cursor-pointer"
+                        >
                           Log Out
                         </span>
                       </button>
@@ -307,31 +290,6 @@ export default function Navbar() {
             </div>
 
             {/* Auth Links */}
-            <div className="p-3 border-b border-gray-100">
-              <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider px-3 mb-2">
-                Account
-              </p>
-              <Link
-                to="/login"
-                className="flex items-center gap-3 px-3 py-3 hover:bg-gray-100 rounded-xl transition-colors"
-                onClick={() => setIsDropdownOpen(false)}
-              >
-                <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
-                  <FaSignInAlt className="text-blue-600" />
-                </div>
-                <span className="font-medium text-gray-800">Log In</span>
-              </Link>
-              <Link
-                to="/signup"
-                className="flex items-center gap-3 px-3 py-3 hover:bg-gray-100 rounded-xl transition-colors"
-                onClick={() => setIsDropdownOpen(false)}
-              >
-                <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
-                  <FaUserPlus className="text-green-600" />
-                </div>
-                <span className="font-medium text-gray-800">Sign Up</span>
-              </Link>
-            </div>
 
             {/* Menu Items */}
             <div className="p-3">
@@ -366,7 +324,12 @@ export default function Navbar() {
                 <div className="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center">
                   <FaSignOutAlt className="text-red-600" />
                 </div>
-                <span className="font-medium text-gray-800">Log Out</span>
+                <span
+                  className="font-medium text-gray-800 cursor-pointer"
+                  onClick={SignOut}
+                >
+                  Log Out
+                </span>
               </button>
             </div>
           </div>
