@@ -26,6 +26,13 @@ export default function Home() {
   let { data, isLoading, isError } = useQuery({
     queryKey: ["getAllPosts"],
     queryFn: getAllPosts,
+    staleTime: 500000,
+    retry: 2,
+    retryDelay: 3000,
+    refetchInterval: 500000,
+    refetchIntervalInBackground: true,
+    refetchOnReconnect: true,
+    gcTime: 5000,
   });
 
   console.log(data);
@@ -82,7 +89,7 @@ export default function Home() {
               <span className="font-medium me-1  text-[#f3f4f6]">
                 Network error!
               </span>{" "}
-            Network error. Please try again.
+              Network error. Please try again.
             </p>
           </div>
         </div>
@@ -197,6 +204,7 @@ export default function Home() {
           {data?.data.posts.map((post) => (
             <Card key={post._id} post={post} />
           ))}
+        
 
           {/* Loading More */}
           {isLoading && <LoadingCard />}

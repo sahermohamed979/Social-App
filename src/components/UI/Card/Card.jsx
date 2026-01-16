@@ -6,6 +6,8 @@ import {
   FaGlobe,
   FaHeart,
 } from "react-icons/fa";
+import Comment from "../Comment/Comment";
+
 export default function Card({ post }) {
   let { body, comments, image, createdAt, user } = post;
 
@@ -73,7 +75,7 @@ export default function Card({ post }) {
 
         {/* Post Image */}
 
-        <div className="w-full h-96 bg-gray-200">
+        <div className="w-full h-full bg-gray-200">
           <img
             src={image}
             alt="Post image"
@@ -126,6 +128,7 @@ export default function Card({ post }) {
             <span className="text-gray-600 font-semibold">Share</span>
           </button>
         </div>
+        {comments ? <Comment comment={comments[0]} /> : null}
       </div>
     </>
   );

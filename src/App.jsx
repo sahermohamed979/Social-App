@@ -11,8 +11,8 @@ import Profile from "./components/Profile/Profile";
 import Notfound from "./components/Notfound/Notfound";
 import AuthContextProvider from "./Context/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
-import PostsContextProvider from "./Context/PostsContext";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 const query = new QueryClient();
 
@@ -56,11 +56,12 @@ export default function App() {
   return (
     <>
       <AuthContextProvider>
-        <PostsContextProvider>
+       
           <QueryClientProvider client={query}>
             <RouterProvider router={router}></RouterProvider>
+            <ReactQueryDevtools />
           </QueryClientProvider>
-        </PostsContextProvider>
+        
       </AuthContextProvider>
     </>
   );
