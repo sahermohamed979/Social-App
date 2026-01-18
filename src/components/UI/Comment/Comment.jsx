@@ -1,6 +1,12 @@
 import { useState } from "react";
-import { FaThumbsUp, FaHeart, FaLaugh, FaSadTear, FaAngry } from "react-icons/fa";
-
+import {
+  FaThumbsUp,
+  FaHeart,
+  FaLaugh,
+  FaSadTear,
+  FaAngry,
+} from "react-icons/fa";
+import defaultPhoto from "../../../assets/f_n.jpg";
 export default function Comment({ comment }) {
   const [liked, setLiked] = useState(false);
   const [showReactions, setShowReactions] = useState(false);
@@ -20,11 +26,31 @@ export default function Comment({ comment }) {
   };
 
   const reactions = [
-    { icon: FaThumbsUp, color: "text-blue-500", bg: "bg-blue-500", name: "like" },
+    {
+      icon: FaThumbsUp,
+      color: "text-blue-500",
+      bg: "bg-blue-500",
+      name: "like",
+    },
     { icon: FaHeart, color: "text-red-500", bg: "bg-red-500", name: "love" },
-    { icon: FaLaugh, color: "text-yellow-500", bg: "bg-yellow-500", name: "haha" },
-    { icon: FaSadTear, color: "text-yellow-500", bg: "bg-yellow-500", name: "sad" },
-    { icon: FaAngry, color: "text-orange-500", bg: "bg-orange-500", name: "angry" },
+    {
+      icon: FaLaugh,
+      color: "text-yellow-500",
+      bg: "bg-yellow-500",
+      name: "haha",
+    },
+    {
+      icon: FaSadTear,
+      color: "text-yellow-500",
+      bg: "bg-yellow-500",
+      name: "sad",
+    },
+    {
+      icon: FaAngry,
+      color: "text-orange-500",
+      bg: "bg-orange-500",
+      name: "angry",
+    },
   ];
 
   const handleReaction = (reaction) => {
@@ -39,21 +65,24 @@ export default function Comment({ comment }) {
   };
 
   return (
-    <div className="flex gap-2 group py-2 px-4">
+    <div className="flex gap-2 group justify-center px-4 items-center py-2">
       {/* User Avatar */}
       <div className="flex-shrink-0">
-        <div className="w-8 h-8 rounded-full overflow-hidden bg-gradient-to-br from-blue-400 to-blue-600">
-          {comment?.commentCreator?.photo ? (
+        <div className="w-8 h-8 rounded-full overflow-hidden ">
+          {comment?.commentCreator?.photo &&
+          !comment.commentCreator.photo.includes("undefined") ? (
             <img
               src={comment.commentCreator.photo}
               alt={comment.commentCreator.name}
               className="w-full h-full object-cover"
             />
           ) : (
-            <div className="w-full h-full flex items-center justify-center">
-              <span className="text-white text-sm font-semibold">
-                {comment?.commentCreator?.name?.charAt(0) || "U"}
-              </span>
+            <div className="w-full h-full flex items-center justify-center  ">
+              <img
+                src={defaultPhoto}
+                alt={comment.commentCreator.name}
+                className="w-full h-full object-cover"
+              />
             </div>
           )}
         </div>

@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import {
   FaUserFriends,
@@ -12,9 +11,11 @@ import {
   FaGamepad,
   FaChevronDown,
 } from "react-icons/fa";
-import pic from "../../assets/Screenshot 2025-11-24 183204.png";
+import useLogData from "../../Hooks/LogDataHook/LogDataHook";
 
 export default function Leftbar() {
+  const { data } = useLogData();
+
   const menuItems = [
     { icon: FaUserFriends, label: "Friends", link: "#" },
     { icon: FaClock, label: "Memories", link: "#" },
@@ -42,13 +43,13 @@ export default function Leftbar() {
       >
         <div className="w-10 h-10 lg:w-9 lg:h-9 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center flex-shrink-0">
           <img
-            src={pic}
+            src={data?.data.user.photo}
             alt="User"
             className="w-full h-full rounded-full object-cover"
           />
         </div>
         <span className="hidden lg:block font-medium text-gray-800 text-sm xl:text-base truncate">
-          Saher Mohamed
+         {data?.data.user.name}
         </span>
       </Link>
 

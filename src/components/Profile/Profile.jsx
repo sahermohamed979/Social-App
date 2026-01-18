@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import {
   FaCamera,
@@ -15,15 +14,14 @@ import {
   FaComment,
   FaShare,
   FaGlobe,
-  FaUserFriends,
   FaImage,
   FaVideo,
   FaSmile,
 } from "react-icons/fa";
-import pic from "../../assets/Screenshot 2025-11-24 183204.png";
 import banner from "../../assets/482210481_2612874728912958_7405680030859141367_n.jpg";
-
+import useLogData from "../../Hooks/LogDataHook/LogDataHook";
 export default function Profile() {
+  const { data } = useLogData();
   const photos = [1, 2, 3, 4, 5, 6, 7, 8, 9];
   const friends = [
     { name: "John Doe", mutual: 12 },
@@ -36,7 +34,31 @@ export default function Profile() {
     { name: "Lisa Anderson", mutual: 7 },
     { name: "David Lee", mutual: 18 },
   ];
+  console.log(data);
 
+  const date = new Date(data?.data.user.createdAt);
+  const now = new Date();
+  const diffInSeconds = Math.floor((now - date) / 1000);
+
+  let createdAtFormatted;
+  if (diffInSeconds < 60) {
+    createdAtFormatted = "Just now";
+  } else if (diffInSeconds < 3600) {
+    const minutes = Math.floor(diffInSeconds / 60);
+    createdAtFormatted = `${minutes}m`;
+  } else if (diffInSeconds < 86400) {
+    const hours = Math.floor(diffInSeconds / 3600);
+    createdAtFormatted = `${hours}h`;
+  } else if (diffInSeconds < 604800) {
+    const days = Math.floor(diffInSeconds / 86400);
+    createdAtFormatted = `${days}d`;
+  } else {
+    createdAtFormatted = date.toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    });
+  }
   const posts = [
     {
       id: 1,
@@ -84,7 +106,7 @@ export default function Profile() {
           <div className="relative -mt-12 xs:-mt-16 lg:-mt-20 mx-auto lg:mx-0">
             <div className="w-24 h-24 xs:w-32 xs:h-32 lg:w-40 lg:h-40 rounded-full border-4 border-white bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center shadow-lg">
               <img
-                src={pic}
+                src={data?.data.user.photo}
                 alt="User"
                 className="w-full h-full rounded-full object-cover"
               />
@@ -97,7 +119,7 @@ export default function Profile() {
           {/* Name and Info */}
           <div className="mt-3 xs:mt-4 lg:mt-0 lg:ml-4 lg:pb-4 flex-1 text-center lg:text-left">
             <h1 className="text-xl xs:text-2xl md:text-3xl font-bold text-gray-900">
-              Saher Mohamed
+              {data?.data.user.name}
             </h1>
             <p className="text-gray-500 font-medium text-sm xs:text-base">
               1.2K friends
@@ -173,9 +195,10 @@ export default function Profile() {
               <div className="flex items-center gap-3 text-gray-600">
                 <FaBriefcase className="text-gray-500" />
                 <span>
-                  Works at{" "}
+                  Work Mail{" "}
                   <span className="font-semibold text-gray-900">
-                    Tech Company
+                    {data?.data.user.email?.charAt(0).toUpperCase() +
+                      data?.data.user.email?.slice(1)}
                   </span>
                 </span>
               </div>
@@ -191,9 +214,18 @@ export default function Profile() {
               <div className="flex items-center gap-3 text-gray-600">
                 <FaHome className="text-gray-500" />
                 <span>
-                  Lives in{" "}
+                  Date of Birth{" "}
                   <span className="font-semibold text-gray-900">
-                    New York, USA
+                    {data?.data.user.dateOfBirth
+                      ? new Date(data.data.user.dateOfBirth).toLocaleDateString(
+                          "en-US",
+                          {
+                            month: "short",
+                            day: "numeric",
+                            year: "numeric",
+                          },
+                        )
+                      : ""}
                   </span>
                 </span>
               </div>
@@ -208,11 +240,21 @@ export default function Profile() {
               </div>
               <div className="flex items-center gap-3 text-gray-600">
                 <FaHeart className="text-gray-500" />
-                <span>Single</span>
+                <span className="font-semibold text-gray-900">
+                  {data?.data.user.gender?.charAt(0).toUpperCase() +
+                    data?.data.user.gender?.slice(1)}
+                </span>
               </div>
               <div className="flex items-center gap-3 text-gray-600">
                 <FaClock className="text-gray-500" />
-                <span>Joined January 2020</span>
+
+                <span>
+                  Joind{" "}
+                  <span className="font-semibold text-gray-900">
+                    {" "}
+                    {createdAtFormatted}
+                  </span>
+                </span>
               </div>
             </div>
             <button className="w-full mt-4 py-2 bg-gray-100 text-gray-800 rounded-lg font-semibold hover:bg-gray-200 transition-colors">

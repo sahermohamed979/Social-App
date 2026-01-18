@@ -19,8 +19,11 @@ import {
 import pic from "../../assets/Screenshot 2025-11-24 183204.png";
 import { useContext } from "react";
 import { AuthContext } from "../../Context/AuthContext";
+import useLogData from "../../Hooks/LogDataHook/LogDataHook";
 
 export default function Navbar() {
+  const { data } = useLogData();
+
   let { setUser } = useContext(AuthContext);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   let navigate = useNavigate();
@@ -121,7 +124,7 @@ export default function Navbar() {
               >
                 <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center cursor-pointer">
                   <img
-                    src={pic}
+                    src={data?.data.user.photo}
                     alt="User Avatar"
                     className="w-full h-full rounded-full object-cover"
                   />
@@ -153,14 +156,14 @@ export default function Navbar() {
                       >
                         <div className="w-10 h-10 rounded-full overflow-hidden">
                           <img
-                            src={pic}
+                            src={data?.data.user.photo}
                             alt="User"
                             className="w-full h-full object-cover"
                           />
                         </div>
                         <div>
                           <p className="font-semibold text-gray-900">
-                            Saher Mohamed
+                            {data?.data.user.name}
                           </p>
                           <p className="text-sm text-gray-500">
                             See your profile

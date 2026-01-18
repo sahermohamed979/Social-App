@@ -8,18 +8,18 @@ import {
 } from "react-icons/fa";
 import Comment from "../Comment/Comment";
 
-export default function Card({ post }) {
-  let { body, comments, image, createdAt, user } = post;
+export default function Card({ post, showAllComments = false }) {
+  let { body, comments = [], image, createdAt, user } = post;
 
   const date = new Date(createdAt);
   const now = new Date();
   const diffInSeconds = Math.floor((now - date) / 1000);
   const arry = [20, 50, 30, 60, 40, 10, 80, 90, 70, 100];
   const [randomLikes] = useState(
-    () => arry[Math.floor(Math.random() * arry.length)]
+    () => arry[Math.floor(Math.random() * arry.length)],
   );
   const [randomShares] = useState(
-    () => arry[Math.floor(Math.random() * arry.length)]
+    () => arry[Math.floor(Math.random() * arry.length)],
   );
   let createdAtFormatted;
   if (diffInSeconds < 60) {
@@ -128,7 +128,18 @@ export default function Card({ post }) {
             <span className="text-gray-600 font-semibold">Share</span>
           </button>
         </div>
-        {comments ? <Comment comment={comments[0]} /> : null}
+
+        {/* Comments Section */}
+        {comments.length > 0 && (
+          <div className="border-t border-gray-200 ">
+            {showAllComments
+              ? comments.map((comment) => (
+                  <Comment key={comment._id} comment={comment} />
+                ))
+              : <Comment comment={comments[0]} />
+            }
+          </div>
+        )}
       </div>
     </>
   );

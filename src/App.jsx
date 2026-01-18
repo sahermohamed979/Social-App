@@ -13,6 +13,7 @@ import AuthContextProvider from "./Context/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import PostDetails from "./components/PostDetails/PostDetails";
 
 const query = new QueryClient();
 
@@ -48,6 +49,14 @@ let router = createBrowserRouter([
           </ProtectedRoute>
         ),
       },
+      {
+        path: "PostDetails/:id",
+        element: (
+          <ProtectedRoute>
+            <PostDetails />
+          </ProtectedRoute>
+        ),
+      },
     ],
   },
 ]);
@@ -56,12 +65,10 @@ export default function App() {
   return (
     <>
       <AuthContextProvider>
-       
-          <QueryClientProvider client={query}>
-            <RouterProvider router={router}></RouterProvider>
-            <ReactQueryDevtools />
-          </QueryClientProvider>
-        
+        <QueryClientProvider client={query}>
+          <RouterProvider router={router}></RouterProvider>
+          <ReactQueryDevtools />
+        </QueryClientProvider>
       </AuthContextProvider>
     </>
   );

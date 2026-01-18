@@ -8,13 +8,17 @@ import {
   FaChevronLeft,
   FaChevronRight,
 } from "react-icons/fa";
-import pic from "../../assets/Screenshot 2025-11-24 183204.png";
 import Card from "../UI/Card/Card";
 import LoadingCard from "../UI/loadingCard/loadingCard";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import useLogData from "../../Hooks/LogDataHook/LogDataHook";
+
 export default function Home() {
+    const pic = useLogData();
+
   function getAllPosts() {
+
     // Fetch all posts logic here
     return axios.get("https://linked-posts.routemisr.com/posts?limit=50", {
       headers: {
@@ -126,7 +130,7 @@ export default function Home() {
                     <div className="w-full h-full bg-white border border-gray-200 rounded-xl flex flex-col overflow-hidden shadow-sm hover:shadow-md transition-shadow">
                       <div className="flex-1  overflow-hidden">
                         <img
-                          src={pic}
+                          src={pic?.data?.data.user.photo}
                           alt="pic"
                           className="w-full h-full object-cover"
                         />
@@ -201,10 +205,19 @@ export default function Home() {
           </div>
 
           {/* Posts Feed */}
-          {data?.data.posts.map((post) => (
-            <Card key={post._id} post={post} />
-          ))}
-        
+
+          {data?.data?.posts?.map(
+            (post) =>
+              post && (
+                <Link
+                  className="pt-2 inline-block w-full"
+                  key={post._id}
+                  to={`/PostDetails/${post._id}`}
+                >
+                  <Card post={post} />
+                </Link>
+              ),
+          )}
 
           {/* Loading More */}
           {isLoading && <LoadingCard />}
