@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import Card from "../UI/Card/Card";
-import LoadingCard from "../UI/loadingCard/loadingCard";
+import LoadingCard from "../UI/LoadingCard/LoadingCard";
 export default function PostDetails() {
   const { id } = useParams();
   function getSinglePost() {
