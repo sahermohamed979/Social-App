@@ -9,7 +9,7 @@ import {
   FaChevronRight,
 } from "react-icons/fa";
 import Card from "../UI/Card/Card";
-import LoadingCard from "../UI/loadingCard/loadingCard";
+import LoadingCard from "../UI/LoadingCard/LoadingCard";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import useLogData from "../../Hooks/LogDataHook/LogDataHook";
