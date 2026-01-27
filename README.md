@@ -90,32 +90,8 @@ public/
 
 ---
 
-## 🖼️ Screenshots
 
-> Add screenshots here to showcase the UI and features.
 
----
-
-## 🏁 Getting Started
-
-1. **Install dependencies:**
-   ```bash
-   npm install
-   ```
-2. **Run the development server:**
-   ```bash
-   npm run dev
-   ```
-3. **Build for production:**
-   ```bash
-   npm run build
-   ```
-4. **Preview production build:**
-   ```bash
-   npm run preview
-   ```
-
----
 
 ## 🛠️ Customization
 
@@ -129,9 +105,9 @@ public/
 
 Feel free to reach out for collaboration or job opportunities!
 
-- [Your Name]
-- [Your Email]
-- [Your LinkedIn/GitHub]
+- [Saher moahmed]
+- [saher6151@gmail.com]
+- [https://www.linkedin.com/in/sahermohamed979/]
 
 ---
 
