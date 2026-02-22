@@ -59,7 +59,22 @@ export default function Register() {
                     {formState.errors.name.message}
                   </p>
                 )}
-
+                <FormField
+                  type="name"
+                  className="w-full px-3 xs:px-4 py-2.5 xs:py-3 border border-gray-300 rounded-md text-base xs:text-lg bg-gray-50 
+                  focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 
+                  placeholder-gray-500 transition-all"
+                  id="username"
+                  {...register("username")}
+                  name="username"
+                  placeholder="Enter your username"
+                />
+                {formState.touchedFields?.username &&
+                  formState.errors?.username && (
+                    <p className="text-red-500 text-sm mt-1">
+                      {formState.errors.username.message}
+                    </p>
+                  )}
                 {/* Email Field */}
                 <FormField
                   type="email"

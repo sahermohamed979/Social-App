@@ -54,11 +54,11 @@ export default function SettingChangePas() {
 
   function handleChangePas(data) {
     return axios.patch(
-      `https://linked-posts.routemisr.com/users/change-password`,
+      `https://route-posts.routemisr.com/users/change-password`,
       data,
       {
         headers: {
-          token: localStorage.getItem("token"),
+          Authorization: `Bearer ${localStorage.getItem("Token")}`,
         },
       },
     );
@@ -69,7 +69,7 @@ export default function SettingChangePas() {
     onSuccess: () => {
       toast.success("Password changed successfully!");
       reset();
-      localStorage.removeItem("token");
+      localStorage.removeItem("Token");
       setTimeout(() => {
         navigate("/login");
       }, 1000);
@@ -97,13 +97,13 @@ export default function SettingChangePas() {
               <div className="p-6 bg-gradient-to-br from-blue-50 to-indigo-50 border-b border-gray-100">
                 <div className="flex items-center gap-4">
                   <img
-                    src={LogData?.data?.data?.user?.photo}
+                    src={LogData?.data?.data?.data.user?.photo}
                     alt="User"
                     className="w-14 h-14 rounded-full object-cover ring-4 ring-white shadow-sm"
                   />
                   <div className="flex-1 min-w-0">
                     <h3 className="font-bold text-gray-900 truncate">
-                      {LogData?.data?.data?.user?.name}
+                      {LogData?.data?.data?.data.user?.name}
                     </h3>
                     <p className="text-sm text-gray-500 truncate">
                       Personal Settings

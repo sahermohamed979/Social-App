@@ -5,8 +5,10 @@ import { createContext } from "react";
 export let AuthContext = createContext(null);
 
 export default function AuthContextProvider(props) {
-  const [user, setUser] = useState(localStorage.getItem("token") || null);
+  const [user, setUser] = useState(localStorage.getItem("Token") || null);
   return (
-    <AuthContext.Provider value={{ user, setUser }}>{props.children}</AuthContext.Provider>
+    <AuthContext.Provider value={{ user, setUser }}>
+      {props.children}
+    </AuthContext.Provider>
   );
 }

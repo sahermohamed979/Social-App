@@ -16,6 +16,7 @@ import useLogData from "../../../Hooks/LogDataHook/LogDataHook";
 export default function Leftbar() {
   const { data } = useLogData();
 
+  
   const menuItems = [
     { icon: FaUserFriends, label: "Friends", link: "#" },
     { icon: FaClock, label: "Memories", link: "#" },
@@ -43,13 +44,13 @@ export default function Leftbar() {
       >
         <div className="w-10 h-10 lg:w-9 lg:h-9 rounded-full  flex items-center justify-center flex-shrink-0">
           <img
-            src={data?.data.user.photo}
+            src={data?.data?.data.user.photo}
             alt="User"
             className="w-full h-full rounded-full object-cover"
           />
         </div>
         <span className="hidden lg:block font-medium text-gray-800 text-sm xl:text-base truncate">
-         {data?.data.user.name}
+          {data?.data?.data.user.name}
         </span>
       </Link>
 

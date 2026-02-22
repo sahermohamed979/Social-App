@@ -5,9 +5,9 @@ export default function LogData() {
   const queryClient = useQueryClient();
 
   function getlog() {
-    return axios.get("https://linked-posts.routemisr.com/users/profile-data", {
+    return axios.get("https://route-posts.routemisr.com/users/profile-data", {
       headers: {
-        token: localStorage.getItem("token"),
+        Authorization: `Bearer ${localStorage.getItem("Token")}`,
       },
     });
   }
@@ -17,7 +17,7 @@ export default function LogData() {
     queryFn: getlog,
     retry: 2,
     retryDelay: 3000,
-    staleTime: 6 * 60 * 1000, 
+    staleTime: 6 * 60 * 1000,
   });
 
   function clearLogCache() {

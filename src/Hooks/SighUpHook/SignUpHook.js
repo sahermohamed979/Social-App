@@ -48,6 +48,7 @@ export default function SignUpHook() {
   let FormData = useForm({
     defaultValues: {
       name: "",
+      username: "",
       email: "",
       password: "",
       rePassword: "",
@@ -73,7 +74,7 @@ export default function SignUpHook() {
   });
   function handleSighup(values) {
     return axios.post(
-      "https://linked-posts.routemisr.com/users/signup",
+      "https://route-posts.routemisr.com/users/signup",
       values,
     );
   }

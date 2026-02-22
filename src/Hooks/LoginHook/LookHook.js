@@ -35,8 +35,9 @@ export default function LoginHook() {
 
     onSuccess: (data) => {
       toast.success("Login successful! Redirecting...");
-      setUser(data.data.token);
-      localStorage.setItem("token", data.data.token);
+      setUser(data.data.data.token);
+      console.log(data);
+      localStorage.setItem("Token", data.data.data.token);
       setTimeout(() => {
         navigate("/Home");
       }, 1000);
@@ -47,10 +48,7 @@ export default function LoginHook() {
     },
   });
   function handleLogin(values) {
-    return axios.post(
-      "https://linked-posts.routemisr.com/users/signin",
-      values,
-    );
+    return axios.post("https://route-posts.routemisr.com/users/signin", values);
   }
 
   return { FormData, mutate, isPending, error };

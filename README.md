@@ -129,8 +129,8 @@ public/
 
 Feel free to reach out for collaboration or job opportunities!
 
-- [Your Name]
-- [Your Email]
+- [saher moahmed]
+- [saher6151@gmail.com]
 - [Your LinkedIn/GitHub]
 
 ---

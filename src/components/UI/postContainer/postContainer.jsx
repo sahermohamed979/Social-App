@@ -111,12 +111,12 @@ export default function PostContainer() {
             <hr className="border-gray-200 mb-4" />
             <div className="flex items-center gap-3 mb-4">
               <img
-                src={data?.data?.user.photo}
+                src={data?.data?.data.user.photo || "User"}
                 alt="User"
                 className="w-10 h-10 object-cover rounded-full"
               />
               <span className="font-semibold">
-                {data?.data?.user.name || "User"}
+                {data?.data?.data.user.name || "User"}
               </span>
             </div>
 
@@ -201,7 +201,7 @@ export default function PostContainer() {
               <div className="w-10 h-10 rounded-full  flex items-center justify-center">
                 <span className="text-white font-semibold">
                   <img
-                    src={data?.data?.user.photo}
+                    src={data?.data?.data.user.photo}
                     alt="User"
                     className="w-full h-full object-cover rounded-full"
                   />

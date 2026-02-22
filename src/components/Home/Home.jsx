@@ -11,11 +11,12 @@ import { Helmet } from "react-helmet";
 
 export default function Home() {
   const pic = useLogData();
+  console.log(pic);
 
   function getAllPosts() {
-    return axios.get("https://linked-posts.routemisr.com/posts?limit=10", {
+    return axios.get("https://route-posts.routemisr.com/posts", {
       headers: {
-        token: localStorage.getItem("token"),
+        Authorization: `Bearer ${localStorage.getItem("Token")}`,
       },
     });
   }
@@ -30,10 +31,9 @@ export default function Home() {
     refetchIntervalInBackground: true,
     refetchOnReconnect: true,
     gcTime: 500000,
-    select: (data) => data?.data.posts.reverse(),
+    select: (data) => data?.data.data.posts.reverse(),
   });
 
-  console.log(data);
 
   const stories = [
     { id: 0, name: "Create Story", isCreate: true },
@@ -127,7 +127,7 @@ export default function Home() {
                     <div className="w-full h-full bg-white border border-gray-200 rounded-xl flex flex-col overflow-hidden shadow-sm hover:shadow-md transition-shadow">
                       <div className="flex-1  overflow-hidden">
                         <img
-                          src={pic?.data?.data.user.photo}
+                          src={pic?.data?.data.data.user.photo}
                           alt="pic"
                           className="w-full h-full object-cover"
                         />
