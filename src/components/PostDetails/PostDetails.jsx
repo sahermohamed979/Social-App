@@ -9,11 +9,10 @@ import { Helmet } from "react-helmet";
 export default function PostDetails() {
   const { id } = useParams();
   const LogData = useLogData();
-
   function getSinglePost() {
-    return axios.get(`https://linked-posts.routemisr.com/posts/${id}`, {
+    return axios.get(`https://route-posts.routemisr.com/posts/${id}`, {
       headers: {
-        token: localStorage.getItem("token"),
+        Authorization: `Bearer ${localStorage.getItem("Token")}`,
       },
     });
   }
@@ -26,9 +25,10 @@ export default function PostDetails() {
     refetchIntervalInBackground: true,
     refetchOnReconnect: true,
 
-    select: (data) => data?.data.post,
+    select: (data) => data?.data.data.post,
   });
 
+  console.log("data:", data);
   return (
     <>
       <Helmet>

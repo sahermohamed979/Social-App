@@ -21,6 +21,8 @@ export default function Card({
 }) {
   const LogData = useLogData();
   let { _id, body, comments = [], image, createdAt, user } = post;
+console.log("post:", post);
+
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isLike, setIsLike] = useState(false);
 
@@ -78,7 +80,7 @@ export default function Card({
                 </div>
               </div>
             </div>
-            {user?._id === LogData?.data?.data?.user?._id && (
+            {user?._id === LogData?.data?.data?.data.user?.id && (
               <div className="relative">
                 <button
                   onClick={() => setIsDropdownOpen(!isDropdownOpen)}
@@ -152,13 +154,17 @@ export default function Card({
 
         {/* Post Actions */}
         <div className="px-4 py-1 flex">
-         
-          
-          <button onClick={() => setIsLike(!isLike)} className="flex-1 cursor-pointer flex items-center justify-center gap-1 sm:gap-2 py-2.5 hover:bg-gray-100 rounded-lg transition-colors">
+          <button
+            onClick={() => setIsLike(!isLike)}
+            className="flex-1 cursor-pointer flex items-center justify-center gap-1 sm:gap-2 py-2.5 hover:bg-gray-100 rounded-lg transition-colors"
+          >
+            <FaThumbsUp
+              className={`text-lg ${isLike ? "text-blue-500" : "text-gray-500"}`}
+            />
 
-            <FaThumbsUp className={`text-lg ${isLike ? "text-blue-500" : "text-gray-500"}`} />
-
-            <span className={`hidden sm:inline ${isLike ? "text-blue-500" : "text-gray-500"} font-semibold  `}>
+            <span
+              className={`hidden sm:inline ${isLike ? "text-blue-500" : "text-gray-500"} font-semibold  `}
+            >
               Like
             </span>
           </button>

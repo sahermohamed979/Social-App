@@ -24,6 +24,7 @@ export default function Profile() {
 
   const LogData = useLogData();
   const userId = LogData?.data?.data?.data.user?._id;
+  
 
   const friends = [
     { name: "John Doe", mutual: 12 },
@@ -81,9 +82,8 @@ export default function Profile() {
     refetchIntervalInBackground: true,
     refetchOnReconnect: true,
     gcTime: 500000,
-    select: (data) => data?.data.data.posts.reverse(),
+    select: (data) => data?.data.data.posts,
   });
-  console.log(data);
   return (
     <>
       <Helmet>

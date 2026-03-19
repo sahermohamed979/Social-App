@@ -13,6 +13,7 @@ export default function CreatComment({ id }) {
   const { register, handleSubmit, reset } = useForm({
     defaultValues: {
       content: "",
+      image: null,
     },
   });
 
@@ -23,11 +24,11 @@ export default function CreatComment({ id }) {
     };
 
     return axios.post(
-      "https://linked-posts.routemisr.com/comments",
+      `https://route-posts.routemisr.com/posts/${id}/comments`,
       commentData,
       {
         headers: {
-          token: localStorage.getItem("token"),
+          Authorization: `Bearer ${localStorage.getItem("Token")}`,
         },
       },
     );
@@ -57,7 +58,7 @@ export default function CreatComment({ id }) {
           {/* User Avatar */}
           <div className="flex-shrink-0">
             <img
-              src={LogData?.data?.data?.user?.photo}
+              src={LogData?.data?.data.data?.user?.photo}
               alt="Your profile"
               className="w-8 h-8 sm:w-9 sm:h-9 rounded-full object-cover ring-2 ring-gray-100"
             />

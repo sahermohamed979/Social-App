@@ -36,11 +36,11 @@ export default function UploadProfilePic() {
     formData.append("photo", data.photo[0]);
 
     return axios.put(
-      `https://linked-posts.routemisr.com/users/upload-photo`,
+      `https://route-posts.routemisr.com/users/upload-photo`,
       formData,
       {
         headers: {
-          token: localStorage.getItem("token"),
+          Authorization: `Bearer ${localStorage.getItem("Token")}`,
         },
       },
     );

@@ -86,9 +86,9 @@ export default function PostContainer() {
     if (data.image) {
       formData.append("image", data.image);
     }
-    return axios.post("https://linked-posts.routemisr.com/posts", formData, {
+    return axios.post("https://route-posts.routemisr.com/posts", formData, {
       headers: {
-        token: localStorage.getItem("token"),
+        Authorization: `Bearer ${localStorage.getItem("Token")}`,
       },
     });
   }

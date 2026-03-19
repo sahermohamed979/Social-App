@@ -15,7 +15,6 @@ export default function UpdatePost({ id, image, body }) {
   const queryClient = useQueryClient();
   const [open, setOpen] = useState(false);
   const { data } = useLogData();
-
   useEffect(() => {
     if (open) {
       document.body.style.overflow = "hidden";
@@ -83,11 +82,11 @@ export default function UpdatePost({ id, image, body }) {
       formData.append("image", data.image);
     }
     return axios.put(
-      `https://linked-posts.routemisr.com/posts/${id}`,
+      `https://route-posts.routemisr.com/posts/${id}`,
       formData,
       {
         headers: {
-          token: localStorage.getItem("token"),
+          Authorization: `Bearer ${localStorage.getItem("Token")}`,
         },
       },
     );
@@ -110,12 +109,12 @@ export default function UpdatePost({ id, image, body }) {
             <hr className="border-gray-200 mb-4" />
             <div className="flex items-center gap-3 mb-4">
               <img
-                src={data?.data?.user.photo}
+                src={data?.data?.data.user.photo}
                 alt="User"
                 className="w-10 h-10 object-cover rounded-full"
               />
               <span className="font-semibold">
-                {data?.data?.user.name || "User"}
+                {data?.data?.data.user.name || "User"}
               </span>
             </div>
 

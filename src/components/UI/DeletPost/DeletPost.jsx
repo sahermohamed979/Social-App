@@ -6,20 +6,18 @@ import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 
 export default function DeletPost({ id }) {
-  
   const queryClient = useQueryClient();
   function deletePost() {
-    return axios.delete(`https://linked-posts.routemisr.com/posts/${id}`, {
+    return axios.delete(`https://route-posts.routemisr.com/posts/${id}`, {
       headers: {
-        token: localStorage.getItem("token"),
+        Authorization: `Bearer ${localStorage.getItem("Token")}`,
       },
     });
   }
   function handledeDelete() {
     Swal.fire({
       title: "Are you sure?",
-     
-    
+
       showCancelButton: true,
       confirmButtonColor: "#1c64f2",
       cancelButtonColor: "#d33",
@@ -45,22 +43,21 @@ export default function DeletPost({ id }) {
   });
 
   return (
-  
-     <li className="border-b border-gray-200 flex  align-center  ">
-              <button
-                disabled={isPending}
-                onClick={() => handledeDelete()}
-                className="flex cursor-pointer items-center w-full px-4 py-2 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                {isPending ? (
-                  <>
-                    <FontAwesomeIcon icon={faSpinner} spin />
-                     Deleting Post
-                  </>
-                ) : (
-                  " Delete Post"
-                )}
-              </button>
-            </li>
+    <li className="border-b border-gray-200 flex  align-center  ">
+      <button
+        disabled={isPending}
+        onClick={() => handledeDelete()}
+        className="flex cursor-pointer items-center w-full px-4 py-2 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
+      >
+        {isPending ? (
+          <>
+            <FontAwesomeIcon icon={faSpinner} spin />
+            Deleting Post
+          </>
+        ) : (
+          " Delete Post"
+        )}
+      </button>
+    </li>
   );
 }
